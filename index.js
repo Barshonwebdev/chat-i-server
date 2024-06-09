@@ -12,7 +12,7 @@ const port = process.env.PORT || 5000;
 const server = http.createServer(app);
 const io=socketIo(server,{
     cors: {
-      origin: "http://localhost:5173"
+      origin: "https://chat-i-4976a.web.app/"
     }
   });
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}${process.env.DB_CLUSTER_URL}`;
