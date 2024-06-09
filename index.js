@@ -21,6 +21,7 @@ const client = new MongoClient(uri, {
       version: ServerApiVersion.v1,
       strict: true,
       deprecationErrors: true,
+      
     }
   });
 
@@ -32,7 +33,7 @@ const client = new MongoClient(uri, {
     const chatCollection=await chatDB.collection('chatCollection');
 
     io.on('connection',(socket)=>{
-        console.log('a user connected');
+        
 
        chatCollection.find({}).toArray()
        .then(messages=>socket.emit('initialchats',messages));
@@ -48,9 +49,7 @@ const client = new MongoClient(uri, {
             
         })
 
-       socket.on('disconnect',()=>{
-            console.log('user disconnected');
-        })
+       
     })
 
        client.db("admin").command({ ping: 1 });
