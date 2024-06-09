@@ -24,12 +24,12 @@ const client = new MongoClient(uri, {
     }
   });
 
-   function run() {
+ async  function run() {
     try {
        
 
     const chatDB=client.db('chatDb');
-    const chatCollection= chatDB.collection('chatCollection');
+    const chatCollection=await chatDB.collection('chatCollection');
 
     io.on('connection',(socket)=>{
         console.log('a user connected');
@@ -37,18 +37,18 @@ const client = new MongoClient(uri, {
        chatCollection.find({}).toArray()
        .then(messages=>socket.emit('initialchats',messages));
         
-        socket.on('message',(data)=>{
+        socket.on('message', async(data)=>{
             const message={
                 chat:data
             };
 
-            chatCollection.insertOne(message) 
+          await  chatCollection.insertOne(message) 
                     io.emit('message',message);
                 
             
         })
 
-        socket.on('disconnect',()=>{
+       socket.on('disconnect',()=>{
             console.log('user disconnected');
         })
     })
