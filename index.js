@@ -58,6 +58,10 @@ const client = new MongoClient(uri, {
     }
   }
     run();
+
+app.get('/',(req,res)=>{
+  res.send('running');
+})
 server.listen(port, () => {
   console.log(`server running on port: ${port}`);
 });
